@@ -47,7 +47,7 @@ printf '%s\n' '{"session_id":"x"}' | AIW_STATUSLINE_BASE= aiw-statusline
 
 By default, tasks are filtered by `CLAUDE_CODE_SESSION_ID`; if unset, all tasks on the local machine are shown. Use `--session` to select a session or `--all` to show all local tasks. The board refreshes every 2 seconds by default; press Ctrl-C to exit. `--once` displays one frame. `--recent` defaults to 15 entries and can be set to 0. The interval must be a finite positive number, and the recent-entry count cannot be negative.
 
-In-flight entries show the seat → actual executor, elapsed time / timeout, working directory, model, and consultation group. Files for dead processes are marked `残留` (stale) and are not deleted. Liveness is determined by whether the matching `.lock` is held; older records without a lock file, or lock-probe errors, fall back to checking the pid. Today's totals count execution attempts and exclude skipped tasks. Circuit breakers and substitution quotas are shared across the local machine. Older ledger rows without a session appear only in the all-sessions view.
+In-flight entries show the seat → actual executor, elapsed time / timeout, working directory, model, and panel group. Files for dead processes are marked `残留` (stale) and are not deleted. Liveness is determined by whether the matching `.lock` is held; older records without a lock file, or lock-probe errors, fall back to checking the pid. Today's totals count execution attempts and exclude skipped tasks. Circuit breakers and substitution quotas are shared across the local machine. Older ledger rows without a session appear only in the all-sessions view.
 
 ## State Files
 
@@ -55,7 +55,7 @@ Reads `AIW_STATE` first, or `<安装目录>/state` if unset. The installation di
 
 | File | Fields used |
 | --- | --- |
-| `inflight/<pid>.json` | The matching `.lock` determines liveness, falling back to `pid` if the lock file is missing or probing fails; `host`, `session` for filtering; `seat`, `actual` for the seat and actual executor; `model`, `workdir`; `timeout`, `started` for timing; `panel` for consultation grouping |
+| `inflight/<pid>.json` | The matching `.lock` determines liveness, falling back to `pid` if the lock file is missing or probing fails; `host`, `session` for filtering; `seat`, `actual` for the seat and actual executor; `model`, `workdir`; `timeout`, `started` for timing; `panel` for panel grouping |
 | `seat-ledger.jsonl` | `ts`, `host`, `session`, `seat`, `actual`, `kind`, `rc`, `secs`, `err_tail`, `substituted` for history, success/failure, today's totals, and substitution counts |
 | `breaker.json` | Per-seat `until`, `reason` for displaying active circuit breakers |
 | `daily-count.json` | `date`, `counts`; `seat`, `ts` in `reserved` for today's usage and reservations made within the last two hours |
