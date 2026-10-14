@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# 用途：保留基础状态栏输出，再追加 aiw 派单摘要。
+# 运行：作为 Claude Code statusLine.command；依赖：bash 3.2+、Python 3、可选基础命令。
+src="${BASH_SOURCE[0]}"
+while [ -L "$src" ]; do
+  dir="$(cd -P "$(dirname "$src")" && pwd)"
+  src="$(readlink "$src")"
+  case "$src" in /*) ;; *) src="${dir}/${src}" ;; esac
+done
+dir="$(cd -P "$(dirname "$src")" && pwd)"
+python="${AIW_PYTHON-}"
+exec "${python:-python3}" "$dir/../board.py" statusline-wrap

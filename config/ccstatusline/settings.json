@@ -1,0 +1,193 @@
+{
+  "version": 4,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "custom-text",
+        "customText": "模型 ",
+        "merge": "no-padding",
+        "color": "brightBlack"
+      },
+      {
+        "id": "2",
+        "type": "model",
+        "rawValue": true,
+        "color": "cyan"
+      },
+      {
+        "id": "3",
+        "type": "custom-text",
+        "customText": "思考 ",
+        "merge": "no-padding",
+        "color": "brightBlack"
+      },
+      {
+        "id": "4",
+        "type": "thinking-effort",
+        "rawValue": true,
+        "color": "magenta"
+      },
+      {
+        "id": "5",
+        "type": "separator"
+      },
+      {
+        "id": "6",
+        "type": "git-branch",
+        "color": "yellow"
+      },
+      {
+        "id": "7",
+        "type": "separator"
+      },
+      {
+        "id": "8",
+        "type": "custom-text",
+        "customText": "改动 ",
+        "merge": "no-padding",
+        "color": "brightBlack"
+      },
+      {
+        "id": "9",
+        "type": "git-changes",
+        "rawValue": true,
+        "color": "brightBlack"
+      }
+    ],
+    [
+      {
+        "id": "10",
+        "type": "custom-text",
+        "customText": "上下文 ",
+        "merge": "no-padding",
+        "color": "brightBlack"
+      },
+      {
+        "id": "11",
+        "type": "context-length",
+        "rawValue": true,
+        "color": "green"
+      },
+      {
+        "id": "12",
+        "type": "separator"
+      },
+      {
+        "id": "13",
+        "type": "custom-text",
+        "customText": "5小时 ",
+        "merge": "no-padding",
+        "color": "brightBlack"
+      },
+      {
+        "id": "14",
+        "type": "session-usage",
+        "rawValue": true,
+        "color": "brightCyan"
+      },
+      {
+        "id": "15",
+        "type": "custom-text",
+        "customText": "重置 ",
+        "merge": "no-padding",
+        "color": "brightBlack"
+      },
+      {
+        "id": "16",
+        "type": "reset-timer",
+        "rawValue": true,
+        "color": "brightBlack"
+      },
+      {
+        "id": "17",
+        "type": "separator"
+      },
+      {
+        "id": "18",
+        "type": "custom-text",
+        "customText": "7天 ",
+        "merge": "no-padding",
+        "color": "brightBlack"
+      },
+      {
+        "id": "19",
+        "type": "weekly-usage",
+        "rawValue": true,
+        "color": "brightCyan"
+      },
+      {
+        "id": "20",
+        "type": "custom-text",
+        "customText": "重置 ",
+        "merge": "no-padding",
+        "color": "brightBlack"
+      },
+      {
+        "id": "21",
+        "type": "weekly-reset-timer",
+        "rawValue": true,
+        "color": "brightBlack"
+      },
+      {
+        "id": "22",
+        "type": "separator"
+      },
+      {
+        "id": "23",
+        "type": "custom-text",
+        "customText": "Fable周 ",
+        "merge": "no-padding",
+        "color": "brightBlack"
+      },
+      {
+        "id": "24",
+        "type": "fable-weekly-usage",
+        "rawValue": true,
+        "color": "brightCyan"
+      },
+      {
+        "id": "25",
+        "type": "separator"
+      },
+      {
+        "id": "26",
+        "type": "custom-text",
+        "customText": "缓存 ",
+        "merge": "no-padding",
+        "color": "brightBlack"
+      },
+      {
+        "id": "27",
+        "type": "cache-timer",
+        "rawValue": true,
+        "color": "yellow"
+      }
+    ],
+    []
+  ],
+  "flexMode": "full",
+  "compactThreshold": 60,
+  "colorLevel": 2,
+  "defaultPaddingSide": "both",
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "gitCacheTtlSeconds": 5,
+  "terminalWidthCacheTtlSeconds": 5,
+  "customCommandCacheTtlSeconds": 0,
+  "minimalistMode": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false,
+    "continueThemeAcrossLines": false
+  },
+  "defaultPadding": " "
+}
