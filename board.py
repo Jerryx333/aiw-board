@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # 用途：aiw-board 独立展示 aiw 状态的只读派单看板与 Claude Code 状态栏。
-# 运行：aiw-board [--once]；aiw-board statusline；依赖：Python 3 标准库。
+# 运行：aiw-board [--once]；aiw-board statusline；依赖：Python 3.11+ 标准库。
 from __future__ import annotations
 
 import argparse

@@ -1,7 +1,7 @@
 # aiw-board
 [English](README.en.md) | 中文
 
-aiw 的独立只读派单看板与 Claude Code 状态栏。只用 Python 3 标准库和 bash 3.2+，兼容 macOS；不派单、不写 aiw 状态、不清理残留进程文件、不碰派单锁。
+aiw 的独立只读派单看板与 Claude Code 状态栏。只用 Python 3.11+ 标准库和 bash 3.2+，兼容 macOS；不派单、不写 aiw 状态、不清理残留进程文件、不碰派单锁。
 
 [aiw](https://github.com/Jerryx333/aiw) 负责执行任务和写状态，本项目负责显示。两者可以独立更新；新机器仍需先安装 aiw，默认位置为 `~/.claude/aiw`（可以是软链）。
 
@@ -88,7 +88,7 @@ Claude Code 默认在新消息等事件发生时重跑状态栏。配置 `refres
 | --- | --- |
 | `AIW_STATE` | 直接指定状态目录，优先于 HOME 设置 |
 | `AIW_HOME` | `~/.claude/aiw`；未指定 STATE 时在其下读取 state |
-| `AIW_PYTHON` | `python3`，入口和安装脚本使用的 Python 可执行文件 |
+| `AIW_PYTHON` | `python3`，入口和安装脚本使用的 Python 3.11+ 可执行文件；安装前检查版本 |
 | `AIW_STATUSLINE_BASE` | 未设置时优先本地 `ccstatusline`（顺序见下）；显式设置自定义基础命令，空字符串表示只显示派单摘要且忽略旧基础缓存 |
 | `AIW_STATUSLINE_CACHE` | `~/.cache/aiw-statusline`，按会话存基础输出、输入 payload 和刷新锁 |
 | `AIW_STATUSLINE_BASE_TTL` | `300` 秒，须为正整数；非法或非正数回退 300 |

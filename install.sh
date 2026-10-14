@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 用途：幂等安装状态栏入口、ccstatusline 与配置软链。
-# 运行：./install.sh [--apply-settings]；依赖：bash 3.2+、Python 3，可选 bun。
+# 运行：./install.sh [--apply-settings]；依赖：bash 3.2+、Python 3.11+，可选 bun。
 set -euo pipefail
 CCSTATUSLINE_VERSION=2.2.30
 apply_settings=0
@@ -17,8 +17,9 @@ while [ -L "$src" ]; do
   case "$src" in /*) ;; *) src="${dir}/${src}" ;; esac
 done
 repo="$(cd -P "$(dirname "$src")" && pwd)"
-python="${AIW_PYTHON-}"
-"${python:-python3}" - "$repo" "${AIW_BOARD_BIN:-$HOME/.local/bin}" "$CCSTATUSLINE_VERSION" "$apply_settings" <<'PY'
+python="${AIW_PYTHON:-python3}"
+"$python" -c 'import sys; sys.exit("当前 Python %s；需要 Python 3.11 及以上；可用 AIW_PYTHON 指定解释器" % ".".join(map(str, sys.version_info[:3])) if sys.version_info < (3, 11) else 0)'
+"$python" - "$repo" "${AIW_BOARD_BIN:-$HOME/.local/bin}" "$CCSTATUSLINE_VERSION" "$apply_settings" <<'PY'
 import datetime
 import json
 import os

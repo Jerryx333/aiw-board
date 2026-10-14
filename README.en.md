@@ -1,7 +1,7 @@
 # aiw-board
 English | [中文](README.md)
 
-A standalone, read-only dispatch board and Claude Code status line for aiw. Uses only the Python 3 standard library and bash 3.2+, with macOS support. It does not dispatch tasks, write aiw state, remove stale process files, or touch dispatch locks.
+A standalone, read-only dispatch board and Claude Code status line for aiw. Uses only the Python 3.11+ standard library and bash 3.2+, with macOS support. It does not dispatch tasks, write aiw state, remove stale process files, or touch dispatch locks.
 
 [aiw](https://github.com/Jerryx333/aiw) runs tasks and writes state; this project displays it. The two can be updated independently. On a new machine, install aiw first, normally at `~/.claude/aiw` (which can be a symlink).
 
@@ -88,7 +88,7 @@ This display reads only `STATE/tracks/<pid>.json`, reusing inflight's matching `
 | --- | --- |
 | `AIW_STATE` | Sets the state directory directly, taking precedence over HOME settings |
 | `AIW_HOME` | `~/.claude/aiw`; reads state beneath it when STATE is not specified |
-| `AIW_PYTHON` | `python3`, the Python executable used by the entry points and installer |
+| `AIW_PYTHON` | `python3`, the Python 3.11+ executable used by the entry points and installer; the version is checked before installation |
 | `AIW_STATUSLINE_BASE` | When unset, prefers local `ccstatusline` (search order below); set explicitly for a custom base command, or to an empty string to show only the dispatch summary and ignore old base caches |
 | `AIW_STATUSLINE_CACHE` | `~/.cache/aiw-statusline`, storing base output, input payloads, and refresh locks per session |
 | `AIW_STATUSLINE_BASE_TTL` | `300` seconds; must be a positive integer, otherwise falls back to 300 |

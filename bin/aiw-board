@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 用途：独立只读 aiw 派单看板入口。
-# 运行：aiw-board [--all|--session id] [--once] [--interval 秒] [--recent 条] 或 statusline；依赖：bash 3.2+、Python 3。
+# 运行：aiw-board [--all|--session id] [--once] [--interval 秒] [--recent 条] 或 statusline；依赖：bash 3.2+、Python 3.11+。
 src="${BASH_SOURCE[0]}"
 while [ -L "$src" ]; do
   dir="$(cd -P "$(dirname "$src")" && pwd)"

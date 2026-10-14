@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # 用途：aiw-board 自包含测试，全部状态和 HOME 使用临时目录。
-# 运行：python3 tests/test_board.py [用例名]；依赖：Python 3 标准库、bash。
+# 运行：python3 tests/test_board.py [用例名]；依赖：Python 3.11+ 标准库、bash。
 from __future__ import annotations
 import json
 import os
@@ -652,6 +652,41 @@ def test_bin_entry():
         check(r.returncode == 0 and '派单看板' in r.stdout, r.stdout + r.stderr)
         r = sh([str(chained), '--help'], env=env)
         check(r.returncode == 0 and 'usage: aiw-board ' in r.stdout, r.stdout)
+
+
+def test_install_python_version_gate():
+    with tempfile.TemporaryDirectory() as td:
+        t = Path(td)
+        _, env = board_fixture(t)
+        interpreter = t / 'old python'
+        interpreter.write_text(f'''#!{sys.executable}
+import sys
+sys.version_info = (3, 10, 16)
+if sys.argv[1] == '-c':
+    exec(sys.argv[2])
+else:
+    exec(sys.stdin.read())
+''')
+        interpreter.chmod(0o755)
+        dest, config, settings = t / 'installed', t / 'config', t / 'claude'
+        env.update(AIW_PYTHON=str(interpreter), AIW_BOARD_BIN=str(dest),
+                   AIW_BOARD_SKIP_CCSTATUSLINE='1', XDG_CONFIG_HOME=str(config),
+                   CLAUDE_CONFIG_DIR=str(settings))
+
+        def snapshot():
+            return {str(p.relative_to(t)): (p.read_bytes(), p.stat().st_mtime_ns)
+                    if p.is_file() else None for p in t.rglob('*')}
+
+        for args in ([], ['--apply-settings']):
+            before = snapshot()
+            r = sh([str(REPO / 'install.sh')] + args, env=env)
+            check(r.returncode != 0 and not r.stdout, r.stdout + r.stderr)
+            check(r.stderr.splitlines() == [
+                '当前 Python 3.10.16；需要 Python 3.11 及以上；可用 AIW_PYTHON 指定解释器'],
+                r.stderr)
+            check(not any(p.exists() or p.is_symlink() for p in (dest, config, settings)),
+                  '低版本安装创建了入口或配置目录')
+            check(snapshot() == before, '低版本安装修改了文件或创建了软链/配置')
 
 
 def test_install():
