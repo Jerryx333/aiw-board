@@ -1,4 +1,5 @@
 # aiw-board
+[English](README.en.md) | 中文
 
 aiw 的独立只读派单看板与 Claude Code 状态栏。只用 Python 3 标准库和 bash 3.2+，兼容 macOS；不派单、不写 aiw 状态、不清理残留进程文件、不碰派单锁。
 
