@@ -1,7 +1,7 @@
 # aiw-board
 [English](README.en.md) | 中文
 
-aiw 的独立只读派单看板与 Claude Code 状态栏。只用 Python 3.11+ 标准库和 bash 3.2+，兼容 macOS；不派单、不写 aiw 状态、不清理残留进程文件、不碰派单锁。
+aiw 的独立只读派单看板，提供 Claude Code 状态栏和 Codex 底栏（经 `aiw tui` 使用）。只用 Python 3.11+ 标准库和 bash 3.2+，兼容 macOS；不派单、不写 aiw 状态、不清理残留进程文件、不碰派单锁。
 
 [aiw](https://github.com/Jerryx333/aiw) 负责执行任务和写状态，本项目负责显示。两者可以独立更新；新机器仍需先安装 aiw，默认位置为 `~/.claude/aiw`（可以是软链）。
 
@@ -75,6 +75,12 @@ printf '%s\n' '{"session_id":"x"}' | AIW_STATUSLINE_BASE= aiw-statusline
 Claude Code 默认在新消息等事件发生时重跑状态栏。配置 `refreshInterval: 15` 后可持续更新计时。每次刷新约消耗 50ms CPU，多会话叠加；需要更实时可设为 2 秒（最小 1 秒）。
 
 包装脚本先输出基础缓存，再追加派单摘要，不等待基础命令。基础状态栏默认每 5 分钟后台刷新；有新消息时（输入的 `transcript_path` 比缓存新），缓存年龄达到最小间隔（默认 60 秒）才触发后台刷新。同一缓存目录默认最多并发 2 个基础刷新，满额时继续使用旧缓存。首次无缓存只显示派单摘要；基础命令失败或输出为空时保留旧缓存。
+
+### Codex 底栏
+
+先安装 aiw、aiw-board 和 tmux（`brew install tmux`）。运行 `aiw tui` 在 tmux 中启动 Codex，也可用 `aiw tui [codex 参数...]` 透传参数。
+底栏每 15 秒刷新，派单行与 Claude Code 状态栏使用同一份会话摘要，沿用 `● 派单中 N 单` / `○ 派单空闲` / `刚完成 … ✓/✗` / `今日 N 单 ✗N` 格式。首单前尚无线程映射时显示空闲。
+底栏其它行和 `AIW_TUI_STATUS_EXTRA` 的用法见 [aiw 参考文档](https://github.com/Jerryx333/aiw/blob/main/docs/reference.zh-CN.md)。
 
 ### aiw track 长任务
 

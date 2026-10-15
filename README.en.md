@@ -1,7 +1,7 @@
 # aiw-board
 English | [中文](README.md)
 
-A standalone, read-only dispatch board and Claude Code status line for aiw. Uses only the Python 3.11+ standard library and bash 3.2+, with macOS support. It does not dispatch tasks, write aiw state, remove stale process files, or touch dispatch locks.
+A standalone, read-only dispatch board for aiw, with a Claude Code status line and a Codex bottom bar (via `aiw tui`). Uses only the Python 3.11+ standard library and bash 3.2+, with macOS support. It does not dispatch tasks, write aiw state, remove stale process files, or touch dispatch locks.
 
 [aiw](https://github.com/Jerryx333/aiw) runs tasks and writes state; this project displays it. The two can be updated independently. On a new machine, install aiw first, normally at `~/.claude/aiw` (which can be a symlink).
 
@@ -75,6 +75,12 @@ The session is taken first from `session_id` in stdin JSON, then from `CLAUDE_CO
 By default, Claude Code reruns the status line on events such as new messages. Setting `refreshInterval: 15` keeps timers updating continuously. Each refresh uses about 50ms of CPU time, adding up across sessions. For more frequent updates, use 2 seconds (minimum 1 second).
 
 The wrapper first outputs the cached base status line, then appends the dispatch summary without waiting for the base command. By default, the base status line refreshes in the background every 5 minutes. A new message (the input `transcript_path` is newer than the cache) triggers a background refresh only once the cache reaches the minimum age (60 seconds by default). Each cache directory allows at most 2 concurrent base refreshes by default; when that limit is reached, the old cache stays in use. With no cache on the first run, only the dispatch summary is shown. If the base command fails or returns empty output, the old cache is retained.
+
+### Codex Bottom Bar
+
+Install aiw, aiw-board, and tmux (`brew install tmux`) first. Run `aiw tui` to start Codex in tmux, or use `aiw tui [codex arguments...]` to pass arguments through.
+The bottom bar refreshes every 15 seconds. Its dispatch row uses the same session summary as the Claude Code status line: `● 派单中 N 单` / `○ 派单空闲` / `刚完成 … ✓/✗` / `今日 N 单 ✗N`, as described above. Before the first dispatch, it shows idle while no thread mapping is available.
+See the [aiw reference (Chinese)](https://github.com/Jerryx333/aiw/blob/main/docs/reference.zh-CN.md) for the other bottom-bar rows and `AIW_TUI_STATUS_EXTRA`.
 
 ### Long-running aiw track Tasks
 
