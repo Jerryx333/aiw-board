@@ -31,7 +31,7 @@ Without `--apply-settings`, the installer only prints suggested configuration an
     "type": "command",
     "command": "/path/to/aiw-board/bin/aiw-statusline",
     "padding": 0,
-    "refreshInterval": 15
+    "refreshInterval": 60
   }
 }
 ```
@@ -72,7 +72,7 @@ All these fields are written by aiw. The board tolerates missing fields and reta
 
 The session is taken first from `session_id` in stdin JSON, then from `CLAUDE_CODE_SESSION_ID`. Both `aiw-statusline` and `aiw-board statusline` fall back to all local tasks when no session ID is available. The wrapper's cache filenames are still derived from the session ID, retaining only `[A-Za-z0-9_-]`; a missing ID or an empty result after sanitization uses `default`. The summary reads only the last 200 ledger rows, so today's counts and the just-completed list are limited to those rows. Use the full board for complete statistics.
 
-By default, Claude Code reruns the status line on events such as new messages. Setting `refreshInterval: 15` keeps timers updating continuously. Each refresh uses about 50ms of CPU time, adding up across sessions. For more frequent updates, use 2 seconds (minimum 1 second).
+By default, Claude Code reruns the status line on events such as new messages. Setting `refreshInterval: 60` keeps timers updating continuously. Each refresh uses about 50ms of CPU time, adding up across sessions, hence the 60-second default; lower it for more frequent updates (minimum 1 second).
 
 The wrapper first outputs the cached base status line, then appends the dispatch summary without waiting for the base command. By default, the base status line refreshes in the background every 5 minutes. A new message (the input `transcript_path` is newer than the cache) triggers a background refresh only once the cache reaches the minimum age (60 seconds by default). Each cache directory allows at most 2 concurrent base refreshes by default; when that limit is reached, the old cache stays in use. With no cache on the first run, only the dispatch summary is shown. If the base command fails or returns empty output, the old cache is retained.
 

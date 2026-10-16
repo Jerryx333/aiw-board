@@ -705,7 +705,7 @@ def test_install():
                 check(link.is_symlink() and link.resolve() == REPO / 'bin' / name, str(link))
             config = json.loads(r.stdout[r.stdout.index('{'):])['statusLine']
             check(config == dict(type='command', command=str(REPO / 'bin/aiw-statusline'),
-                                 padding=0, refreshInterval=15), config)
+                                 padding=0, refreshInterval=60), config)
         # 普通文件与其他软链都不覆盖；预检失败不安装另一入口。
         for other_link in (False, True):
             conflict = t / ('conflict-link' if other_link else 'conflict-file'); conflict.mkdir()
@@ -834,7 +834,7 @@ def test_install_apply_settings():
         r = sh(cmd, env=env)
         check(r.returncode == 0, r.stdout + r.stderr)
         expected = json.loads(original)
-        expected['statusLine'] = dict(type='command', command=str(REPO / 'bin/aiw-statusline'), padding=0, refreshInterval=15)
+        expected['statusLine'] = dict(type='command', command=str(REPO / 'bin/aiw-statusline'), padding=0, refreshInterval=60)
         check(json.loads(settings.read_text()) == expected, settings.read_text())
         backups = list(settings.parent.glob('settings.json.bak-aiw-board-*'))
         check(len(backups) == 1 and backups[0].read_text() == original and str(backups[0]) in r.stdout, r.stdout)

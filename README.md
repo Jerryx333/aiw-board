@@ -31,7 +31,7 @@ cd aiw-board
     "type": "command",
     "command": "/path/to/aiw-board/bin/aiw-statusline",
     "padding": 0,
-    "refreshInterval": 15
+    "refreshInterval": 60
   }
 }
 ```
@@ -72,7 +72,7 @@ printf '%s\n' '{"session_id":"x"}' | AIW_STATUSLINE_BASE= aiw-statusline
 
 会话优先取 stdin JSON 的 `session_id`，再取 `CLAUDE_CODE_SESSION_ID`；`aiw-statusline` 和 `aiw-board statusline` 在没有会话编号时都回退本机全部。包装入口的缓存文件名仍按会话编号生成，只保留 `[A-Za-z0-9_-]`，没有会话编号或清理后为空时用 `default`。摘要只读账本尾部 200 行，今日计数及刚完成列表限于这些行；完整统计看看板。
 
-Claude Code 默认在新消息等事件发生时重跑状态栏。配置 `refreshInterval: 15` 后可持续更新计时。每次刷新约消耗 50ms CPU，多会话叠加；需要更实时可设为 2 秒（最小 1 秒）。
+Claude Code 默认在新消息等事件发生时重跑状态栏。配置 `refreshInterval: 60` 后可持续更新计时。每次刷新约消耗 50ms CPU，多会话叠加，所以默认 60 秒；需要更实时可改小（最小 1 秒）。
 
 包装脚本先输出基础缓存，再追加派单摘要，不等待基础命令。基础状态栏默认每 5 分钟后台刷新；有新消息时（输入的 `transcript_path` 比缓存新），缓存年龄达到最小间隔（默认 60 秒）才触发后台刷新。同一缓存目录默认最多并发 2 个基础刷新，满额时继续使用旧缓存。首次无缓存只显示派单摘要；基础命令失败或输出为空时保留旧缓存。
 

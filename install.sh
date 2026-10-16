@@ -34,7 +34,7 @@ version, apply_settings = sys.argv[3], sys.argv[4] == '1'
 home = Path.home()
 config = Path(os.environ.get('XDG_CONFIG_HOME') or home / '.config') / 'ccstatusline/settings.json'
 settings = Path(os.environ.get('CLAUDE_CONFIG_DIR') or home / '.claude') / 'settings.json'
-status = dict(type='command', command=str(repo / 'bin/aiw-statusline'), padding=0, refreshInterval=15)
+status = dict(type='command', command=str(repo / 'bin/aiw-statusline'), padding=0, refreshInterval=60)
 links = [(dest / name, repo / 'bin' / name) for name in ('aiw-board', 'aiw-statusline')]
 # 先检查全部冲突和 JSON，避免预检失败时只安装一半。
 for link, target in links:
